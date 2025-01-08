@@ -19,6 +19,7 @@ import io.netty.handler.codec.http.HttpVersion;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 
 public class HTTPProxyHandler extends ChannelInboundHandlerAdapter {
+	
    private Channel serverChannel;
 
    public HTTPProxyHandler(final HttpRequest initial, final Channel clientChannel) throws UnknownHostException {
@@ -29,14 +30,14 @@ public class HTTPProxyHandler extends ChannelInboundHandlerAdapter {
             channel.pipeline().addLast(new ChannelHandler[]{new ReadTimeoutHandler(30)}).addLast("codec", new HttpClientCodec()).addLast(new ChannelHandler[]{new ChannelInboundHandlerAdapter() {
                public void channelActive(ChannelHandlerContext ctx) {
                   HTTPProxyHandler.this.serverChannel = ctx.channel();
-                  if (initial.getMethod() == HttpMethod.CONNECT) {
+                  if(initial.getMethod() == HttpMethod.CONNECT) {
                      clientChannel.writeAndFlush(new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK)).addListener((future) -> {
                         HTTPProxyHandler.this.serverChannel.pipeline().remove("codec");
                         clientChannel.pipeline().remove("codec");
                         clientChannel.config().setAutoRead(true);
                      });
                   } else {
-                     HTTPProxyHandler.this.serverChannel.writeAndFlush(initial).addListener((future) -> {
+                	  HTTPProxyHandler.this.serverChannel.writeAndFlush(initial).addListener((future) -> {
                         HTTPProxyHandler.this.serverChannel.pipeline().remove("codec");
                         clientChannel.pipeline().remove("codec");
                         clientChannel.config().setAutoRead(true);
@@ -59,9 +60,9 @@ public class HTTPProxyHandler extends ChannelInboundHandlerAdapter {
          clientChannel.close();
       });
    }
-
+   
    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-      if (this.serverChannel != null) {
+      if(this.serverChannel != null) {
          this.serverChannel.writeAndFlush(msg);
       }
 
@@ -72,7 +73,7 @@ public class HTTPProxyHandler extends ChannelInboundHandlerAdapter {
    }
 
    public void channelInactive(ChannelHandlerContext ctx) {
-      if (this.serverChannel != null) {
+      if(this.serverChannel != null) {
          this.serverChannel.close();
       }
 

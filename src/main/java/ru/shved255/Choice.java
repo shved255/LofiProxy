@@ -7,7 +7,7 @@ public class Choice {
     @SuppressWarnings("unchecked")
 	public static <T> T choiceList(List<? extends Object> list) {
         boolean isEmpty = list.isEmpty();
-        if (isEmpty) {
+        if(isEmpty) {
             return null;
         }
         int size = list.size();
@@ -21,7 +21,7 @@ public class Choice {
         @SuppressWarnings("rawtypes")
 		List list = (List)collection;
         boolean isEmpty = list.isEmpty();
-        if (isEmpty) {
+        if(isEmpty) {
             return null;
         }
         int size = list.size();
@@ -37,7 +37,7 @@ public class Choice {
     }
 
     public static int getRandomInt(int start, int stop) {
-        if (stop < start) {
+        if(stop < start) {
             return 0;
         }
         List<Integer> range = new Range(start, stop + 1).getList();
@@ -45,7 +45,7 @@ public class Choice {
     }
     
     public static Long getRandomLong(Long start, Long stop) {
-        if (stop < start) {
+        if(stop < start) {
             return (long) 0;
         }
         List<Integer> range = new Range(start, stop + 1).getList();
@@ -59,8 +59,8 @@ public class Choice {
 
     public static boolean getRandomBoolean(boolean flag) {
         int result = Choice.getRandomInt(0, 1);
-        if (result == 0) {
-            if (flag) {
+        if(result == 0) {
+            if(flag) {
                 return flag;
             }
             return flag;
@@ -70,10 +70,10 @@ public class Choice {
 
     public static boolean getChance(double chance) {
         int percents = Double.valueOf(chance * 100.0).intValue();
-        if (percents >= 100) {
+        if(percents >= 100) {
             return true;
         }
-        if (percents <= 0) {
+        if(percents <= 0) {
             return false;
         }
         int res = percents == 99 ? Choice.getRandomInt(0, 100 - percents) : Choice.getRandomInt(0, 100 - percents - 1);

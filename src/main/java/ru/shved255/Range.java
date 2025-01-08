@@ -14,7 +14,7 @@ implements Ranges {
 
     public Range() {
         int i = 0;
-        while (i < 10) {
+        while(i < 10) {
             this.CollectionRange.add(i);
             this.ListRange.add(i);
             ++i;
@@ -23,7 +23,7 @@ implements Ranges {
 
     public Range(int stop) {
         int i = 0;
-        while (i < stop) {
+        while(i < stop) {
             this.CollectionRange.add(i);
             this.ListRange.add(i);
             ++i;
@@ -32,7 +32,7 @@ implements Ranges {
 
     public Range(int start, int stop) {
         int i = start;
-        while (i < stop) {
+        while(i < stop) {
             this.CollectionRange.add(i);
             this.ListRange.add(i);
             ++i;
@@ -41,7 +41,7 @@ implements Ranges {
     
     public Range(Long start, Long stop) {
     	Long i = start;
-        while (i < stop) {
+        while(i < stop) {
             this.CollectionRange1.add(i);
             this.ListRange1.add(i);
             ++i;
@@ -50,7 +50,7 @@ implements Ranges {
 
     public Range(int start, int stop, int step) {
         int i = start;
-        while (i < stop) {
+        while(i < stop) {
             this.CollectionRange.add(i);
             this.ListRange.add(i);
             i += step;
